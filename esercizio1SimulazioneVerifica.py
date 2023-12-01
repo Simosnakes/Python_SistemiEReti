@@ -1,3 +1,12 @@
+def contaNucleotiti(stringa):
+    dizNucleotiti = {"A":0, "C":0, "G":0, "T":0}
+    for char in stringa:
+        dizNucleotiti[char] += 1
+    return dizNucleotiti
+
+def contaNucleotiti2(stringa, nucleotide):
+    return len([x for x in string if x == nucleotide])
+
 def main():
     file = open("covid-19_gen1.txt", "r")
     stringa = ""
@@ -5,13 +14,11 @@ def main():
         riga = riga[:-1]
         stringa = stringa + riga
 
+    file.close()
+
     print(stringa)
 
-    file.close()
-    conta = 0
-    contc = 0
-    contg = 0
-    contt = 0
+    conta, contc, contg, contt = 0, 0, 0, 0
 
     for lettera in stringa:
         if lettera == "A":
@@ -26,6 +33,7 @@ def main():
     print(stringa.find("ATGTTTGTTTTT"))
     
     print(conta, contc, contg, contt)
+    print(contaNucleotiti(stringa))
     
 
 

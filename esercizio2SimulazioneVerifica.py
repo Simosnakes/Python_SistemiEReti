@@ -4,12 +4,23 @@ class CodiceABarre():
         self.lung = 100
         self.numbarre = 64
     
-    def stampaBarranera(self nBarre):
-        for barre
+    def stampaBarra(self, stringa):
+        codiceAscii = ""
 
+        for carattere in stringa:
+            dec_bin(ord(carattere))
+        
 
 def main():
+    lung = False
+    codice = CodiceABarre()
 
+    while(lung == False):
+        stringa = input("Inserisci una stringa alfanumerica (di 8 caratteri): ")
+        if len(stringa) == 8:
+            lung = True
+    
+    codice.stampaBarra(stringa)
 
 if __name__ == "__main__":
     main()
