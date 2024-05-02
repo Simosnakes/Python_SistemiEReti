@@ -13,7 +13,6 @@ in questo modo:
 poi da questa matrice restituire il dizionario delle adiacenze
 """
 import pygame
-import sys
 
 LATOX = 100
 LATOY = 100
@@ -30,7 +29,6 @@ class Cella():
             self.color = "green"
         self.surf = pygame.Surface(self.size)
         self.surf.fill(self.color)
-
 
 def mat2d_adiacenze(m: list[list]):
     return {i: [j for j, n in enumerate(m[i]) if n != 0] for i in range(len(m))}
@@ -80,7 +78,7 @@ def celleLibereAdiacenti(mappa):
             if mappa[i][j] > -1:
                 diz[mappa[i][j]] = []
                 if i > 0:
-                    if mappa[i - 1][j] > -1:#contiene il numero della cella da controllare se è libera la aggiungo
+                    if mappa[i - 1][j] > -1:
                         diz[mappa[i][j]].append(mappa[i - 1][j])
                 if i+1 < len(mappa):
                     if mappa[i + 1][j] > -1:
@@ -93,41 +91,6 @@ def celleLibereAdiacenti(mappa):
                         diz[mappa[i][j]].append(mappa[i][j + 1])
     return diz
 
-def sceltaNodo(non_visitati, label):
-    minLabel = sys.maxsize
-    minNodo = None
-    for nodo in non_visitati:
-        labelNodo = label[nodo]
-        if labelNodo <= minLabel:
-            minLabel = labelNodo
-            minNodo = nodo
-    
-    return minNodo
-
-def algoritmoDijstrak2(nodo_sorgente, matrice):
-    
-    n_nodi = len(matrice)
-
-    nodo_precedente = {}
-
-    non_visitati = set([i for i in range(0, n_nodi)])
-    label = {i: sys.maxsize for i in range(0, n_nodi)}
-    label[nodo_sorgente] = 0
-    
-    while len(non_visitati) > 0:
-        nodoCorrente = sceltaNodo(non_visitati, label)
-        #print(nodoCorrente)
-        non_visitati.remove(nodoCorrente)
-
-        for nodo_vicino, peso in enumerate(matrice[nodoCorrente]):
-            if peso > 0:
-                nuova_label = label[nodoCorrente] + peso
-                if nuova_label < label[nodo_vicino]:
-                    nodo_precedente[nodo_vicino] = nodoCorrente
-                    label[nodo_vicino] = nuova_label
-        
-    return label, nodo_precedente
-
 def main():
     pygame.init()
     clock = pygame.time.Clock()
@@ -139,27 +102,10 @@ def main():
 
     m_numerata = matrice_numerata(m)
 
+    #print(m_numerata)
+
     diz_adiac = celleLibereAdiacenti(m_numerata)
     print(diz_adiac)
-
-    nodo_sorgente = 0
-
-    matrice = [[0, 1, 0, 0, 0, 1, 2], [1, 0, 2, 3, 3, 1, 0], [0, 2, 0, 2, 1, 0, 0], [0, 3, 2, 0, 0, 1], 
-                [0, 3, 1, 0, 0, 1, 0], [1, 1, 0, 0, 1, 0, 0], [2, 0, 0, 1, 0, 0, 0]]
-    diz_dijstrak, diz_nodo_precedente = algoritmoDijstrak2(nodo_sorgente, m)
-    print(diz_dijstrak)
-    print(diz_nodo_precedente)
-
-    destinazione = int(input("inserisci il nodo destinazione: "))
-    lista = []
-    prec = diz_nodo_precedente[destinazione]
-    lista.append(diz_nodo_precedente)
-
-    while prec != nodo_sorgente:
-        prec = diz_nodo_precedente[prec]
-        lista.append(prec)
-    lista = lista[::-1]
-    print(lista)
 
     while True:
         for event in pygame.event.get():
