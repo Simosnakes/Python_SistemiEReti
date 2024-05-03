@@ -42,22 +42,20 @@ class Node():
         else:
             return False
 
-def albero_bilanciato(lista):
-    lista.sort()
-
-    lung = len(lista)
-    meta = lung // 2
-    n = Node(lista[meta])
-    
-    if lung > 1:
-        albero_bilanciato(lista[0:meta])
+def inserisciBilanciato(lista, n):    
+    centro = len(lista) // 2
+    print(lista)
+    n.inserisci(lista[centro])
+    if centro != 0:
+        listaSx = lista[0: centro]
+        listaDx = lista[centro + 1:]
+        if len(listaSx) > 0:
+            inserisciBilanciato(listaSx, n)
+        if len(listaDx) > 0:
+            inserisciBilanciato(listaDx, n)    
     else:
-        n.inserisci(lista)
-    
-    n.stampa()
-    
-
-
+        return None
+        
 def main():
     lista = [5, 6, 2, 20, 28, 16]
     albero_bilanciato(lista)
