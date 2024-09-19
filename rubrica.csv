@@ -1,4 +1,6 @@
 nickname, ip_address, porta
-Arrigoni, 192.168.1.132, 43211
-Karol, 192.168.1.138, 43211
-Leonardo, 192.168.1.133, 43211
+Pollicino,192.168.1.124,43211
+Arrigoni,192.168.1.100,43211
+Bruno,192.168.1.138,43211
+Masoero,192.168.1.133,43211
+Broadcast,192.168.1.255,43211
